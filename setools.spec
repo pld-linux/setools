@@ -8,7 +8,7 @@ Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 #Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
 Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	d021e88053caa0af2bdbfd829dd16a66
+# Source0-md5:	ee3e7a28eea7ba7bb9956abab738cbde
 #Patch0:		%{name}-userbuild.patch
 URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
