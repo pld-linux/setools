@@ -1,0 +1,30 @@
+diff -urN setools-1.1.1.org/seuser/Makefile setools-1.1.1/seuser/Makefile
+--- setools-1.1.1.org/seuser/Makefile	2004-01-31 11:39:23.619117759 +0100
++++ setools-1.1.1/seuser/Makefile	2004-01-31 11:40:23.977555770 +0100
+@@ -72,7 +72,7 @@
+ #
+ # NOTE The following targets assume selinux and the chcon utility
+ seuser-policy:
+-	@if [ -e /etc/security/selinux/src/policy/policy.conf ]; then \
++	@if [ -e /etc/security/selinux/src/policy/policy.conf-nothing ]; then \
+ 		install -d $(TE_PROGS_DIR); \
+ 		install -d $(FC_PROGS_DIR); \
+ 		install -m 644 -Z system_u:object_r:policy_src_t ../policy/seuser.te $(TE_PROGS_DIR); \
+@@ -96,7 +96,7 @@
+ 
+ install-nogui: seuser policy-install
+ 	install -d $(BINDIR); 
+-	@if [ -e /etc/security/selinux/src/policy/policy.conf ]; then \
++	@if [ -e /etc/security/selinux/src/policy/policy.conf-nothing ]; then \
+ 		install -m 755 -Z system_u:object_r:seuser_exec_t seuser $(BINDIR); \
+ 		install -m 644 -Z system_u:object_r:seuser_conf_t $(SEUSER_CONF_FILE) $(INSTALL_LIBDIR); \
+ 	else \
+@@ -107,7 +107,7 @@
+ 
+ install: install-nogui seuserx se_user.tcl
+ 	install -d $(BINDIR); 
+-	@if [ -e /etc/security/selinux/src/policy/policy.conf ]; then \
++	@if [ -e /etc/security/selinux/src/policy/policy.conf-nothing ]; then \
+ 		install -m 755 -Z system_u:object_r:seuser_exec_t seuserx $(BINDIR); \
+ 	else \
+ 		install -m 755 seuserx $(BINDIR); \
