@@ -1,19 +1,21 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	1.5.1
+Version:	2.0
 Release:	0.1
 License:	GPL
 Group:		Base
-#Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
+#Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tar.bz2
 #Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
-Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	98b540b77f1554ff24b5ea62de32c0db
+Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tar.bz2
+# Source0-md5:	3f03b184d1e50735bba6084212abcf74
+Patch0:		%{name}-opt.patch
 URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	libglade2-devel
+BuildRequires:	libglade2-devel >= 2.0
 BuildRequires:	perl-base
+BuildRequires:	sqlite3-devel >= 3.0.8
 BuildRequires:	tk-devel
 Requires:	checkpolicy
 Requires:	policy-sources
@@ -109,15 +111,13 @@ Statyczne bibliotek setools.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-# includes hack
-%{__make} -C libsefs \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -I. -I../libapol"
 %{__make} all \
+	DYNAMIC=1 \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}" \
+	OPT="%{rpmcflags}" \
 	TCL_LIBINC="" \
 	TCL_LIBS="-ltk -ltcl -lfl -lm -ldl"
 
@@ -125,28 +125,11 @@ Statyczne bibliotek setools.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
 
-# INCLUDE_DIR is hack for double DESTDIR bug
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	INCLUDE_DIR=%{_includedir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%if 0
-# not ready... (policy, chcon from patched coreutils?)
-%post
-cd /etc/security/selinux/src/policy
-make install
-make reload
-chcon system_u:object_r:seuser_exec_t /usr/bin/seuser
-chcon system_u:object_r:seuser_conf_t /usr/lib/apol/seuser.conf
-
-%postun
-cd /etc/security/selinux/src/policy
-make install
-make reload
-%endif
 
 %files
 %defattr(644,root,root,755)
