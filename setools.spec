@@ -1,14 +1,14 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	1.4
+Version:	1.4.1
 Release:	0.1
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 #Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
 Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	ee3e7a28eea7ba7bb9956abab738cbde
+# Source0-md5:	6afb10ee33873892772cdaa7f04a136a
 #Patch0:		%{name}-userbuild.patch
 URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
