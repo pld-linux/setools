@@ -2,7 +2,7 @@ Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
 Version:	1.1.1
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
@@ -105,8 +105,6 @@ rm -rf $RPM_BUILD_ROOT
 cd /etc/security/selinux/src/policy
 make install
 make reload
-chcon system_u:object_r:policy_src_t /etc/security/selinux/src/policy/domains/program/seuser.te
-chcon system_u:object_r:policy_src_t /etc/security/selinux/src/policy/file_contexts/program/seuser.fc
 chcon system_u:object_r:seuser_exec_t /usr/bin/seuser
 chcon system_u:object_r:seuser_conf_t /usr/lib/apol/seuser.conf
 
@@ -120,5 +118,3 @@ make reload
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/apol
-/etc/security/selinux/src/policy/domains/program/seuser.te
-/etc/security/selinux/src/policy/file_contexts/program/seuser.fc
