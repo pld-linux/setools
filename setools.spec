@@ -1,15 +1,14 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	1.4.1
+Version:	1.5
 Release:	0.1
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 #Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
 Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	6afb10ee33873892772cdaa7f04a136a
-#Patch0:		%{name}-userbuild.patch
+# Source0-md5:	22e5c74adbb8faa52fa3f6ac0fdb136e
 URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
 BuildRequires:	libglade2-devel
@@ -47,12 +46,9 @@ development of additional tools:
   setools libraries. It's used to test SELinux GUIs (apol and seuser
   have the interpreter compiled within them). One could conceivably
   write one's own GUI tools using Tcl/Tk as extended via awish.
-%if 0
-# unpackaged yet (what about headers?)
 - libapol: The main policy.conf analysis library, which is the core
   library for all our tools.
 - libseuser: The primary logic used for seuser.
-%endif
 
 %description -l pl
 Ten pakiet zawiera narzêdzia i biblioteki dla Linuksa w wersji
@@ -74,6 +70,9 @@ narzêdzia:
   seuserdel. £±cz± one funkcjonalno¶æ poleceñ s* z seuser, aby
   zapewniæ pojedynczy interfejs do zarz±dzania u¿ytkownikami w
   SELinuksie.
+- libapol - g³ówna biblioteka analizy policy.conf, która jest rdzeniem
+  wszystkich narzêdzi z setools.
+- libseuser - podstawowa logika u¿ywana przez seuser.
 
 Pakiet zawiera tak¿e narzêdzie mog±ce s³u¿yæ jako czê¶æ do budowania
 innych narzêdzi - jest to awish, czyli wersja interpretera wish z
@@ -81,11 +80,40 @@ Tcl/Tk zawieraj±ca biblioteki setools. Jest u¿ywany do testowania
 GUI dla SELinuksa (apol i seuser maj± interpreter wkompilowany).
 Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 
+%package devel
+Summary:	Header files for setools libraries
+Summary(pl):	Pliki nag³ówkowe bibliotek setools
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+Header files for setools libraries: libapol, libseaudit, libsefs,
+libseuser.
+
+%description devel -l pl
+Pliki nag³ówkowe bibliotek setools: libapol, libseaudit, libsefs,
+libseuser.
+
+%package static
+Summary:	Static setools libraries
+Summary(pl):	Statyczne bibliotek setools
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static setools libraries.
+
+%description static -l pl
+Statyczne bibliotek setools.
+
 %prep
 %setup -q
-#%%patch0 -p1 -b .wiget
 
 %build
+# includes hack
+%{__make} -C libsefs \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -I. -I../libapol"
 %{__make} all \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
@@ -96,8 +124,10 @@ Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
 
+# INCLUDE_DIR is hack for double DESTDIR bug
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	INCLUDE_DIR=%{_includedir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -120,4 +150,14 @@ make reload
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_datadir}/setools
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so
+%{_includedir}/setools
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
