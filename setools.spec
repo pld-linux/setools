@@ -1,14 +1,14 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	1.1.1
-Release:	0.2
+Version:	1.2.1
+Release:	0.1
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
 Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	b0147413a6d28dd9d281fc8e41e124ea
-Patch0:		%{name}-userbuild.patch
+# Source0-md5:	dfcdad721490ea89ed030c15485cdbf7
+#Patch0:		%{name}-userbuild.patch
 BuildRequires:	perl-base
 BuildRequires:	tk-devel
 BuildRequires:	libglade2-devel
@@ -81,7 +81,7 @@ Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1 -b .wiget
 
 %build
 %{__make} all \
