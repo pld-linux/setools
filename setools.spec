@@ -14,13 +14,13 @@ URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libglade2-devel >= 2.0
+BuildRequires:	libselinux-devel
 BuildRequires:	perl-base
 BuildRequires:	sqlite3-devel >= 3.0.8
 BuildRequires:	tk-devel
 Requires:	checkpolicy
 Requires:	policy-sources
 Requires:	policycoreutils
-Requires:	tk
 Requires:	tk-BWidget
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
