@@ -43,10 +43,10 @@ following utilities:
 
 And the following tool which can serve as building blocks for the
 development of additional tools:
-- awish: A version of the TCL/TK wish interpreter that includes the
+- awish: A version of the Tcl/Tk wish interpreter that includes the
   setools libraries. It's used to test SELinux GUIs (apol and seuser
   have the interpreter compiled within them). One could conceivably
-  write one's own GUI tools using TCL/TK as extended via awish.
+  write one's own GUI tools using Tcl/Tk as extended via awish.
 %if 0
 # unpackaged yet (what about headers?)
 - libapol: The main policy.conf analysis library, which is the core
@@ -77,7 +77,7 @@ narzêdzia:
 
 Pakiet zawiera tak¿e narzêdzie mog±ce s³u¿yæ jako czê¶æ do budowania
 innych narzêdzi - jest to awish, czyli wersja interpretera wish z
-TCL/TK zawieraj±ca biblioteki setools. Jest u¿ywany do testowania
+Tcl/Tk zawieraj±ca biblioteki setools. Jest u¿ywany do testowania
 GUI dla SELinuksa (apol i seuser maj± interpreter wkompilowany).
 Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 
