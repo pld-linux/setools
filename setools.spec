@@ -1,23 +1,25 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	1.2.1
+Version:	1.4
 Release:	0.1
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
+#Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
 Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tgz
-# Source0-md5:	dfcdad721490ea89ed030c15485cdbf7
+# Source0-md5:	d021e88053caa0af2bdbfd829dd16a66
 #Patch0:		%{name}-userbuild.patch
+URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
+BuildRequires:	bison
+BuildRequires:	libglade2-devel
 BuildRequires:	perl-base
 BuildRequires:	tk-devel
-BuildRequires:	libglade2-devel
-BuildRequires:	bison
 Requires:	checkpolicy
+Requires:	policy-sources
 Requires:	policycoreutils
 Requires:	tk
 Requires:	tk-BWidget
-# R: policy, policy-sources
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -87,6 +89,7 @@ Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 %{__make} all \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}" \
+	TCL_LIBINC="" \
 	TCL_LIBS="-ltk -ltcl -lfl -lm -ldl"
 
 %install
@@ -117,4 +120,4 @@ make reload
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/apol
+%{_datadir}/setools
