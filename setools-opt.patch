@@ -1,0 +1,96 @@
+--- setools-2.0/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/Makefile	2005-03-12 16:47:17.401244528 +0100
+@@ -90,9 +90,9 @@
+ endif
+ 
+ ifeq ($(DEBUG), 0)
+-CFLAGS		= -Wall -O2 -fPIC $(TCL_INCLUDE) $(CC_DEFINES)
++CFLAGS		= -Wall $(OPT) $(TCL_INCLUDE) $(CC_DEFINES)
+ else
+-CFLAGS		= -Wall -g $(TCL_INCLUDE) $(CC_DEFINES)
++CFLAGS		= -Wall $(OPT) -g $(TCL_INCLUDE) $(CC_DEFINES)
+ #CFLAGS		= -Wall -ansi -pedantic -g $(TCL_INCLUDE) $(CC_DEFINES)
+ endif
+ 
+--- setools-2.0/libsefs/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/libsefs/Makefile	2005-03-29 13:52:13.652651704 +0200
+@@ -14,7 +14,7 @@
+ LIBSO  = $(TARGET).$(shell cat VERSION)
+ 
+ 
+-CFLAGS		+= -I. -I../libapol 
++CFLAGS		+= -I. -I../libapol -fPIC
+ 
+ all: sqlite libsefs $(LIBSO)
+ 
+@@ -23,13 +23,13 @@
+ sqlite: nothing
+ 	cd sqlite; $(MAKE)
+ 
+-libsefs: sqlite libsefs.a 
++libsefs: libsefs.a 
+ 
+-$(LIBSO): $(LIB-OBJ) $(SQL-OBJ)
+-	$(CC) $(LDFLAGS) -shared -o $(LIBSO) $^ -Wl,-soname,$(SONAME) 
++$(LIBSO): $(LIB-OBJ)
++	$(CC) $(LDFLAGS) -shared -o $(LIBSO) $^ -Wl,-soname,$(SONAME) -lsqlite3
+ 
+ libsefs.a:  $(LIB-OBJ) 
+-	 ar cr $@ $(LIB-OBJ) $(SQL-OBJ)
++	 ar cr $@ $(LIB-OBJ)
+ 
+ install-libsefs-shared: $(LIBSO)
+ 	install -m 755 $(LIBSO) $(SHARED_LIB_INSTALL_DIR)
+--- setools-2.0/libsefs/fsdata.c.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/libsefs/fsdata.c	2005-03-29 13:52:32.959716584 +0200
+@@ -10,7 +10,7 @@
+ 
+ #include "fsdata.h"
+ /* sqlite db stuff */
+-#include "sqlite/sqlite3.h"
++#include <sqlite3.h>
+ 
+ 
+ /* SE Linux includes*/
+--- setools-2.0/libapol/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/libapol/Makefile	2005-03-29 14:04:13.687189816 +0200
+@@ -22,7 +22,7 @@
+ CFLAGS  += -DLIBAPOL_POLICY_INSTALL_DIR='"$(POLICY_INSTALL_DIR)"'
+ CFLAGS  += -DLIBAPOL_SELINUX_DIR='"$(SELINUX_DIR)"'
+ CFLAGS	+= -DLIBAPOL_DEFAULT_POLICY='"$(POLICY_SRC_FILE)"'
+-CFLAGS  += -I.
++CFLAGS  += -I. -fPIC
+ 
+ all: libapol libapol-tcl libapolso libapol-tclso
+ 
+--- setools-2.0/libseuser/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/libseuser/Makefile	2005-03-29 14:04:45.020426440 +0200
+@@ -6,6 +6,7 @@
+ 
+ CFLAGS      += -DLIBSEUSER_VERSION_STRING='"$(shell cat VERSION)"'
+ CFLAGS      += -DSETFILES_PROG='"$(SETFILES_PROG)"'
++CFLAGS      += -fPIC
+ 
+ TARGET 	    = libseuser.so
+ SONAME 	    = $(TARGET).1
+--- setools-2.0/libseaudit/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/libseaudit/Makefile	2005-03-29 14:05:11.066466840 +0200
+@@ -3,6 +3,7 @@
+ SEAUDIT_LIBS   = libseaudit.a ../libapol/libapol.a $(LIBS)
+ CFLAGS		+= -D_GNU_SOURCE
+ CFLAGS          += -DLIBSEAUDIT_VERSION_STRING='"$(shell cat VERSION)"'
++CFLAGS          += -fPIC
+ LIBXML_FLAGS   = `pkg-config --cflags libxml-2.0`
+ 
+ TARGET = libseaudit.so
+--- setools-2.0/secmds/Makefile.orig	2005-03-01 00:31:59.000000000 +0100
++++ setools-2.0/secmds/Makefile	2005-03-29 15:22:33.467714576 +0200
+@@ -56,7 +56,7 @@
+ 	$(CC) -c indexcon.c $(CFLAGS) $(INCLUDE)
+ 
+ indexcon: indexcon.o $(LIBAPOL) $(LIBSEFS)
+-	$(CC) -static -o $@ indexcon.o $(LINKFLAGS) $(STATICSEFS) $(LIBSELINUXSO) $(STATICAPOL) $(LIBS)
++	$(CC) -o $@ indexcon.o $(LINKFLAGS) $(LIBSEFS) $(LIBSELINUXSO) $(LIBAPOL) $(LIBS)
+ 
+ searchcon.o: searchcon.c
+ 	$(CC) -c searchcon.c $(CFLAGS) $(INCLUDE)
