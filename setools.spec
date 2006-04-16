@@ -1,14 +1,14 @@
 Summary:	SELinux tools for managing policy
 Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
 Name:		setools
-Version:	2.1.1
+Version:	2.3
 Release:	0.1
 License:	GPL
 Group:		Base
 #Source0:	http://www.nsa.gov/selinux/archives/%{name}-%{version}.tar.bz2
 #Source0Download: http://www.tresys.com/selinux/selinux_policy_tools.html
-Source0:	http://www.tresys.com/Downloads/selinux-tools/%{name}-%{version}.tar.bz2
-# Source0-md5:	b90ea097e39d01695cfc4033623d322e
+Source0:	http://tresys.com/files/setools/%{name}-%{version}.tar.bz2
+# Source0-md5:	fcb16faa702a3e0b51276803bd736401
 Patch0:		%{name}-opt.patch
 URL:		http://www.tresys.com/selinux/selinux_policy_tools.html
 BuildRequires:	bison
@@ -16,6 +16,7 @@ BuildRequires:	flex
 BuildRequires:	libglade2-devel >= 2.0
 BuildRequires:	libselinux-devel
 BuildRequires:	perl-base
+BuildRequires:	pkgconfig
 BuildRequires:	sqlite3-devel >= 3.0.8
 BuildRequires:	tk-devel
 Requires:	checkpolicy
@@ -32,16 +33,16 @@ following utilities:
 - apol: The GUI-based policy analysis tool.
 - sepcut: A basic GUI-based policy configuration, browsing, editing,
   and testing tool, intended to provide a complete, single user
-  interface for viewing the source files of a policy, configuring
-  policy program modules, editing policy files, and making and testing
-  the policy.
+  interface for viewing the source files of a policy, configuring policy
+  program modules, editing policy files, and making and testing the
+  policy.
 - seuser: A GUI and command line user manager tool for SELinux. This
   is a tool that actually manages a portion of a running policy (i.e.,
   user accounts).
 - seuser scripts: A set of shell scripts: seuseradd, seusermod, and
   seuserdel. These scripts combine the functions of the associated s*
-  commands with seuser to provide a single interface to manage users
-  in SE Linux.
+  commands with seuser to provide a single interface to manage users in
+  SE Linux.
 
 And the following tool which can serve as building blocks for the
 development of additional tools:
@@ -61,27 +62,26 @@ kontroli dostêpu do Linuksa). Ten pakiet zawiera nastêpuj±ce
 narzêdzia:
 - apol - narzêdzie do analizy polityki z graficznym interfejsem.
 - sepcut - podstawowe graficzne narzêdzie do konfiguracji,
-  przegl±dania, edycji i testowania polityki, maj±ce zapewniæ
-  kompletny interfejs do przegl±dania plików ¼ród³owych polityki,
-  konfigurowania modu³ów programu polityki, edycji plików polityki
-  oraz tworzenia i testowania polityki.
+  przegl±dania, edycji i testowania polityki, maj±ce zapewniæ kompletny
+  interfejs do przegl±dania plików ¼ród³owych polityki, konfigurowania
+  modu³ów programu polityki, edycji plików polityki oraz tworzenia i
+  testowania polityki.
 - seuser - graficzne oraz dzia³aj±ce z linii poleceñ narzêdzie do
   zarz±dzania u¿ytkownikami dla SELinuksa. Jest to narzêdzie
   zarz±dzaj±ce czê¶ci± funkcjonuj±cej polityki (czyli kontami
   u¿ytkowników).
 - skrypty seuser - zbiór skryptów pow³oki: seuseradd, seusermod oraz
-  seuserdel. £±cz± one funkcjonalno¶æ poleceñ s* z seuser, aby
-  zapewniæ pojedynczy interfejs do zarz±dzania u¿ytkownikami w
-  SELinuksie.
+  seuserdel. £±cz± one funkcjonalno¶æ poleceñ s* z seuser, aby zapewniæ
+  pojedynczy interfejs do zarz±dzania u¿ytkownikami w SELinuksie.
 - libapol - g³ówna biblioteka analizy policy.conf, która jest rdzeniem
   wszystkich narzêdzi z setools.
 - libseuser - podstawowa logika u¿ywana przez seuser.
 
 Pakiet zawiera tak¿e narzêdzie mog±ce s³u¿yæ jako czê¶æ do budowania
 innych narzêdzi - jest to awish, czyli wersja interpretera wish z
-Tcl/Tk zawieraj±ca biblioteki setools. Jest u¿ywany do testowania
-GUI dla SELinuksa (apol i seuser maj± interpreter wkompilowany).
-Mo¿na pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
+Tcl/Tk zawieraj±ca biblioteki setools. Jest u¿ywany do testowania GUI
+dla SELinuksa (apol i seuser maj± interpreter wkompilowany). Mo¿na
+pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
 
 %package devel
 Summary:	Header files for setools libraries
@@ -110,7 +110,7 @@ Static setools libraries.
 Statyczne bibliotek setools.
 
 %prep
-%setup -q
+%setup -q -n %{name}
 %patch0 -p1
 
 %build
@@ -128,20 +128,28 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	SHARED_LIB_INSTALL_DIR=$RPM_BUILD_ROOT%{_libdir}
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}-%{version}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
+%doc KNOWN-BUGS README apol/*.txt seaudit/seaudit_help.txt
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_datadir}/setools
+%{_datadir}/%{name}-%{version}
+%{_mandir}/man[18]/*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/setools
+%{_includedir}/*
 
 %files static
 %defattr(644,root,root,755)
