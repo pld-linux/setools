@@ -13,11 +13,12 @@ diff -ur setools.org/libapol/Makefile setools.new/libapol/Makefile
 diff -ur setools.org/libseaudit/Makefile setools.new/libseaudit/Makefile
 --- setools.org/libseaudit/Makefile	2006-01-23 16:58:42.000000000 +0100
 +++ setools.new/libseaudit/Makefile	2006-04-17 00:32:42.678200000 +0200
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,8 @@
  SEAUDIT_LIBS   = libseaudit.a ../libapol/libapol.a $(LIBS)
  CFLAGS		+= -D_GNU_SOURCE
  CFLAGS          += -DLIBSEAUDIT_VERSION_STRING='"$(shell cat VERSION)"'
 +CFLAGS		+= -fPIC
++LDFLAGS	+= -lxml2
  LIBXML_FLAGS   = `pkg-config --cflags libxml-2.0`
  
  TARGET = libseaudit.so
@@ -36,24 +37,17 @@ diff -ur setools.org/libsefs/fsdata.c setools.new/libsefs/fsdata.c
 diff -ur setools.org/libsefs/Makefile setools.new/libsefs/Makefile
 --- setools.org/libsefs/Makefile	2006-01-23 16:58:42.000000000 +0100
 +++ setools.new/libsefs/Makefile	2006-04-17 00:29:01.912403000 +0200
-@@ -14,7 +14,7 @@
- LIBSO  = $(TARGET).$(shell cat VERSION)
- 
- 
--CFLAGS		+= -I. -I../libapol
-+CFLAGS		+= -I. -I../libapol -fPIC
- 
- all: libsefs libsefsso
- 
 @@ -25,10 +25,10 @@
  	$(MAKE) -C sqlite all
  
- $(LIBSO): sqlite $(LIB-OBJ)  
+-$(LIBSO): sqlite $(LIB-OBJ)  
 -	$(CC) $(LDFLAGS) -shared -o $(LIBSO) $(LIB-OBJ) $(SQL-OBJ) -Wl,-soname,$(SONAME) 
-+	$(CC) $(LDFLAGS) -shared -o $(LIBSO) $(LIB-OBJ) $(SQL-OBJ) -Wl,-soname,$(SONAME) -lsqlite3
++$(LIBSO): $(LIB-OBJ)  
++	$(CC) $(LDFLAGS) -shared -o $(LIBSO) $(LIB-OBJ) -Wl,-soname,$(SONAME) -lsqlite3
  
- libsefs.a: sqlite $(LIB-OBJ) 
+-libsefs.a: sqlite $(LIB-OBJ) 
 -	 ar cr $@ $(LIB-OBJ) $(SQL-OBJ)
++libsefs.a: $(LIB-OBJ) 
 +	 ar cr $@ $(LIB-OBJ)
  
  install-libsefs-shared: $(LIBSO) install-includes
@@ -65,11 +59,11 @@ diff -ur setools.org/Makefile setools.new/Makefile
  endif
  
  ifeq ($(DEBUG), 0)
--CFLAGS			= -Wall -O2 -fPIC $(CC_DEFINES)
-+CFLAGS			= $(OPT) -fPIC $(CC_DEFINES)
+-CFLAGS			+= -Wall -O2 -fPIC $(CC_DEFINES)
++CFLAGS			+= $(OPT) -Wall -fPIC $(CC_DEFINES)
  else
--CFLAGS			= -Wall -g -fPIC $(CC_DEFINES) -DDEBUG
-+CFLAGS			= $(OPT) -fPIC $(CC_DEFINES) -DDEBUG
+-CFLAGS			+= -Wall -g -fPIC $(CC_DEFINES) -DDEBUG
++CFLAGS			+= $(OPT) -Wall -fPIC $(CC_DEFINES) -DDEBUG
  #CFLAGS			= -Wall -ansi -pedantic -g $(CC_DEFINES)
  endif
  
@@ -80,8 +74,8 @@ diff -ur setools.org/secmds/Makefile setools.new/secmds/Makefile
  	$(CC) -c indexcon.c $(CFLAGS) $(INCLUDE)
  
  indexcon: indexcon.o $(LIBSEFS) $(LIBAPOL)
--	$(CC) -o $@ indexcon.o $(LINKFLAGS) $(STATICSEFS) $(LIBSELINUXSO) $(STATICAPOL) $(LIBS)
-+	$(CC) -o $@ indexcon.o $(LINKFLAGS) $(STATICSEFS) $(LIBSELINUXSO) $(STATICAPOL) $(LIBS) -lsqlite3
+-	$(CC) -o $@ indexcon.o $(LDFLAGS) $(STATICSEFS) $(LIBSELINUXSO) $(STATICAPOL) $(LIBS)
++	$(CC) -o $@ indexcon.o $(LDFLAGS) $(STATICSEFS) $(LIBSELINUXSO) $(STATICAPOL) $(LIBS) -lsqlite3
  
  searchcon.o: searchcon.c
  	$(CC) -c searchcon.c $(CFLAGS) $(INCLUDE)
