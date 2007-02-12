@@ -1,5 +1,5 @@
 Summary:	SELinux tools for managing policy
-Summary(pl):	Narzêdzia do zarz±dzania polityk± SELinux
+Summary(pl.UTF-8):   NarzÄ™dzia do zarzÄ…dzania politykÄ… SELinux
 Name:		setools
 Version:	2.4
 Release:	0.1
@@ -53,38 +53,38 @@ development of additional tools:
   library for all our tools.
 - libseuser: The primary logic used for seuser.
 
-%description -l pl
-Ten pakiet zawiera narzêdzia i biblioteki dla Linuksa w wersji
-Security-enhanced (jest to projekt z rozszerzon± funkcjonalno¶ci±
-zwi±zan± z bezpieczeñstwem opracowan± w celu dodania mandatowej
-kontroli dostêpu do Linuksa). Ten pakiet zawiera nastêpuj±ce
-narzêdzia:
-- apol - narzêdzie do analizy polityki z graficznym interfejsem.
-- sepcut - podstawowe graficzne narzêdzie do konfiguracji,
-  przegl±dania, edycji i testowania polityki, maj±ce zapewniæ kompletny
-  interfejs do przegl±dania plików ¼ród³owych polityki, konfigurowania
-  modu³ów programu polityki, edycji plików polityki oraz tworzenia i
+%description -l pl.UTF-8
+Ten pakiet zawiera narzÄ™dzia i biblioteki dla Linuksa w wersji
+Security-enhanced (jest to projekt z rozszerzonÄ… funkcjonalnoÅ›ciÄ…
+zwiÄ…zanÄ… z bezpieczeÅ„stwem opracowanÄ… w celu dodania mandatowej
+kontroli dostÄ™pu do Linuksa). Ten pakiet zawiera nastÄ™pujÄ…ce
+narzÄ™dzia:
+- apol - narzÄ™dzie do analizy polityki z graficznym interfejsem.
+- sepcut - podstawowe graficzne narzÄ™dzie do konfiguracji,
+  przeglÄ…dania, edycji i testowania polityki, majÄ…ce zapewniÄ‡ kompletny
+  interfejs do przeglÄ…dania plikÃ³w ÅºrÃ³dÅ‚owych polityki, konfigurowania
+  moduÅ‚Ã³w programu polityki, edycji plikÃ³w polityki oraz tworzenia i
   testowania polityki.
-- seuser - graficzne oraz dzia³aj±ce z linii poleceñ narzêdzie do
-  zarz±dzania u¿ytkownikami dla SELinuksa. Jest to narzêdzie
-  zarz±dzaj±ce czê¶ci± funkcjonuj±cej polityki (czyli kontami
-  u¿ytkowników).
-- skrypty seuser - zbiór skryptów pow³oki: seuseradd, seusermod oraz
-  seuserdel. £±cz± one funkcjonalno¶æ poleceñ s* z seuser, aby zapewniæ
-  pojedynczy interfejs do zarz±dzania u¿ytkownikami w SELinuksie.
-- libapol - g³ówna biblioteka analizy policy.conf, która jest rdzeniem
-  wszystkich narzêdzi z setools.
-- libseuser - podstawowa logika u¿ywana przez seuser.
+- seuser - graficzne oraz dziaÅ‚ajÄ…ce z linii poleceÅ„ narzÄ™dzie do
+  zarzÄ…dzania uÅ¼ytkownikami dla SELinuksa. Jest to narzÄ™dzie
+  zarzÄ…dzajÄ…ce czÄ™Å›ciÄ… funkcjonujÄ…cej polityki (czyli kontami
+  uÅ¼ytkownikÃ³w).
+- skrypty seuser - zbiÃ³r skryptÃ³w powÅ‚oki: seuseradd, seusermod oraz
+  seuserdel. ÅÄ…czÄ… one funkcjonalnoÅ›Ä‡ poleceÅ„ s* z seuser, aby zapewniÄ‡
+  pojedynczy interfejs do zarzÄ…dzania uÅ¼ytkownikami w SELinuksie.
+- libapol - gÅ‚Ã³wna biblioteka analizy policy.conf, ktÃ³ra jest rdzeniem
+  wszystkich narzÄ™dzi z setools.
+- libseuser - podstawowa logika uÅ¼ywana przez seuser.
 
-Pakiet zawiera tak¿e narzêdzie mog±ce s³u¿yæ jako czê¶æ do budowania
-innych narzêdzi - jest to awish, czyli wersja interpretera wish z
-Tcl/Tk zawieraj±ca biblioteki setools. Jest u¿ywany do testowania GUI
-dla SELinuksa (apol i seuser maj± interpreter wkompilowany). Mo¿na
-pisaæ w³asne graficzne narzêdzia przy u¿yciu awisha.
+Pakiet zawiera takÅ¼e narzÄ™dzie mogÄ…ce sÅ‚uÅ¼yÄ‡ jako czÄ™Å›Ä‡ do budowania
+innych narzÄ™dzi - jest to awish, czyli wersja interpretera wish z
+Tcl/Tk zawierajÄ…ca biblioteki setools. Jest uÅ¼ywany do testowania GUI
+dla SELinuksa (apol i seuser majÄ… interpreter wkompilowany). MoÅ¼na
+pisaÄ‡ wÅ‚asne graficzne narzÄ™dzia przy uÅ¼yciu awisha.
 
 %package devel
 Summary:	Header files for setools libraries
-Summary(pl):	Pliki nag³ówkowe bibliotek setools
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe bibliotek setools
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -92,20 +92,20 @@ Requires:	%{name} = %{version}-%{release}
 Header files for setools libraries: libapol, libseaudit, libsefs,
 libseuser.
 
-%description devel -l pl
-Pliki nag³ówkowe bibliotek setools: libapol, libseaudit, libsefs,
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe bibliotek setools: libapol, libseaudit, libsefs,
 libseuser.
 
 %package static
 Summary:	Static setools libraries
-Summary(pl):	Statyczne bibliotek setools
+Summary(pl.UTF-8):   Statyczne bibliotek setools
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static setools libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne bibliotek setools.
 
 %prep
