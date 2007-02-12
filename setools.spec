@@ -1,5 +1,5 @@
 Summary:	SELinux tools for managing policy
-Summary(pl.UTF-8):   Narzędzia do zarządzania polityką SELinux
+Summary(pl.UTF-8):	Narzędzia do zarządzania polityką SELinux
 Name:		setools
 Version:	2.4
 Release:	0.1
@@ -84,7 +84,7 @@ pisać własne graficzne narzędzia przy użyciu awisha.
 
 %package devel
 Summary:	Header files for setools libraries
-Summary(pl.UTF-8):   Pliki nagłówkowe bibliotek setools
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek setools
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -98,7 +98,7 @@ libseuser.
 
 %package static
 Summary:	Static setools libraries
-Summary(pl.UTF-8):   Statyczne bibliotek setools
+Summary(pl.UTF-8):	Statyczne bibliotek setools
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
