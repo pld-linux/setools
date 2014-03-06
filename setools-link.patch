@@ -1,0 +1,55 @@
+--- setools-3.3.8/libapol/swig/tcl/Makefile.am.orig	2013-01-16 17:36:23.000000000 +0100
++++ setools-3.3.8/libapol/swig/tcl/Makefile.am	2014-03-05 11:45:32.136924128 +0100
+@@ -21,7 +21,7 @@
+ 	$(SWIG) $(SWIG_TCL_OPT) -pkgversion @libapol_version@ -o $@ -I$(top_srcdir)/libapol/include -I$(top_srcdir)/libqpol/swig $<
+ 
+ $(wrappedso_DATA): $(BUILT_SOURCES)
+-	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME)
++	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME) $(TCL_LIB_FLAG)
+ 	$(LN_S) -f $@ $(wrappedso_SONAME)
+ 	$(LN_S) -f $@ $(short_name)
+ 
+--- setools-3.3.8/libpoldiff/swig/tcl/Makefile.am.orig	2013-01-16 17:36:24.000000000 +0100
++++ setools-3.3.8/libpoldiff/swig/tcl/Makefile.am	2014-03-05 11:46:09.480255895 +0100
+@@ -22,7 +22,7 @@
+ 	$(SWIG) $(SWIG_TCL_OPT) -pkgversion @libpoldiff_version@ -o $@ -I$(top_srcdir)/libpoldiff/include -I$(top_srcdir)/libapol/include -I$(top_srcdir)/libapol/swig -I$(top_srcdir)/libqpol/swig $<
+ 
+ $(wrappedso_DATA): $(BUILT_SOURCES)
+-	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME)
++	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME) $(TCL_LIB_FLAG)
+ 	$(LN_S) -f $@ $(wrappedso_SONAME)
+ 	$(LN_S) -f $@ $(short_name)
+ 
+--- setools-3.3.8/libqpol/swig/tcl/Makefile.am.orig	2013-01-16 17:36:24.000000000 +0100
++++ setools-3.3.8/libqpol/swig/tcl/Makefile.am	2014-03-05 11:46:52.190254102 +0100
+@@ -18,7 +18,7 @@
+ 	$(SWIG) $(SWIG_TCL_OPT) -pkgversion @libqpol_version@ -o $@ $<
+ 
+ $(wrappedso_DATA): $(BUILT_SOURCES)
+-	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME)
++	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME) $(TCL_LIB_FLAG)
+ 	$(LN_S) -f $@ $(wrappedso_SONAME)
+ 	$(LN_S) -f $@ $(short_name)
+ 
+--- setools-3.3.8/libseaudit/swig/tcl/Makefile.am.orig	2013-01-16 17:36:23.000000000 +0100
++++ setools-3.3.8/libseaudit/swig/tcl/Makefile.am	2014-03-05 11:47:16.393586419 +0100
+@@ -22,7 +22,7 @@
+ 	$(SWIG) $(SWIG_TCL_OPT) -pkgversion @libseaudit_version@ -o $@ -I$(top_srcdir)/libseaudit/include -I$(top_srcdir)/libapol/include -I$(top_srcdir)/libapol/swig -I$(top_srcdir)/libqpol/swig $<
+ 
+ $(wrappedso_DATA): $(BUILT_SOURCES)
+-	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME)
++	$(CC) -shared -o $@ $^ $(AM_CFLAGS) $(CFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME) $(TCL_LIB_FLAG)
+ 	$(LN_S) -f $@ $(wrappedso_SONAME)
+ 	$(LN_S) -f $@ $(short_name)
+ 
+--- setools-3.3.8/apol/Makefile.am.orig	2013-01-16 17:36:23.000000000 +0100
++++ setools-3.3.8/apol/Makefile.am	2014-03-05 12:13:28.716853768 +0100
+@@ -85,7 +85,7 @@
+ 	-I$(top_srcdir)/libqpol/swig $<
+ 
+ $(wrappedso_DATA): apol_tcl.cc apol_tcl_wrap.cc
+-	$(CXX) -shared -o $@ $^ $(AM_CXXFLAGS) $(CXXFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME)
++	$(CXX) -shared -o $@ $^ $(AM_CXXFLAGS) $(CXXFLAGS) $(SWIG_TCL_CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -Wl,-soname,$(wrappedso_SONAME) $(TCL_LIB_FLAG)
+ 
+ $(package_SCRIPTS): $(wrappedso_DATA) mkIndex.tcl
+ 	cat mkIndex.tcl | LD_LIBRARY_PATH=$(top_builddir)/libqpol/src:$(top_builddir)/libapol/src:$(top_builddir)/libsefs/src $(TCLSH_PROG)

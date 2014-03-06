@@ -1,0 +1,24 @@
+--- setools-3.3.8/m4/tcl.m4.orig	2013-01-16 17:36:22.000000000 +0100
++++ setools-3.3.8/m4/tcl.m4	2014-03-04 17:58:32.136277460 +0100
+@@ -3636,7 +3636,9 @@
+ 
+ AC_DEFUN([TEA_PROG_TCLSH], [
+     AC_MSG_CHECKING([for tclsh])
+-    if test -f "${TCL_BIN_DIR}/Makefile" ; then
++    if test -n "$TCLSH_PROG" ; then
++	:
++    elif test -f "${TCL_BIN_DIR}/Makefile" ; then
+         # tclConfig.sh is in Tcl build directory
+         if test "${TEA_PLATFORM}" = "windows"; then
+             TCLSH_PROG="${TCL_BIN_DIR}/tclsh${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}${TCL_DBGX}${EXEEXT}"
+@@ -3686,7 +3688,9 @@
+ 
+ AC_DEFUN([TEA_PROG_WISH], [
+     AC_MSG_CHECKING([for wish])
+-    if test -f "${TK_BIN_DIR}/Makefile" ; then
++    if test -n "$WISH_PROG" ; then
++	:
++    elif test -f "${TK_BIN_DIR}/Makefile" ; then
+         # tkConfig.sh is in Tk build directory
+         if test "${TEA_PLATFORM}" = "windows"; then
+             WISH_PROG="${TK_BIN_DIR}/wish${TK_MAJOR_VERSION}${TK_MINOR_VERSION}${TK_DBGX}${EXEEXT}"
