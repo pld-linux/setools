@@ -11,7 +11,7 @@ Release:	2
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 #Source0Download: http://oss.tresys.com/projects/setools/wiki/download
-Source0:	http://oss.tresys.com/projects/setools/chrome/site/dists/%{name}-%{version}/%{name}-%{version}.tar.bz2
+Source0:	https://raw.githubusercontent.com/wiki/TresysTechnology/setools3/files/dists/%{name}-%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	d68d0d4e4da0f01da0f208782ff04b91
 Source1:	seaudit.pamd
 Patch0:		%{name}-swig.patch
@@ -20,7 +20,7 @@ Patch2:		%{name}-tcl.patch
 Patch3:		%{name}-format.patch
 Patch4:		%{name}-swig-part2.patch
 Patch5:		%{name}-link.patch
-URL:		http://oss.tresys.com/projects/setools/
+URL:		https://github.com/TresysTechnology/setools3/wiki
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	bison
