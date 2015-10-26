@@ -7,7 +7,7 @@ Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
 Version:	3.3.8
-Release:	2
+Release:	3
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 #Source0Download: http://oss.tresys.com/projects/setools/wiki/download
@@ -20,6 +20,10 @@ Patch2:		%{name}-tcl.patch
 Patch3:		%{name}-format.patch
 Patch4:		%{name}-swig-part2.patch
 Patch5:		%{name}-link.patch
+Patch6:		%{name}-x32.patch
+Patch7:		%{name}-swig-version.patch
+Patch8:		%{name}-sepol.patch
+Patch9:		%{name}-selinux.patch
 URL:		https://github.com/TresysTechnology/setools3/wiki
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -31,8 +35,8 @@ BuildRequires:	gtk+2-devel >= 2:2.8
 %{?with_java:BuildRequires:	jdk >= 1.2}
 BuildRequires:	libglade2-devel >= 2.0
 BuildRequires:	libselinux-devel >= 1.30
-BuildRequires:	libsepol-devel >= 2.0.29
-BuildRequires:	libsepol-static >= 2.0.29
+BuildRequires:	libsepol-devel >= 2.4
+BuildRequires:	libsepol-static >= 2.4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2
@@ -110,8 +114,8 @@ Summary:	Policy analysis support libraries for SELinux
 Summary(pl.UTF-8):	Biblioteki wspierające analizę polityk SELinuksa
 License:	LGPL v2.1+
 Group:		Libraries
-Requires:	libselinux >= 1.30
-Requires:	libsepol >= 2.0.29
+Requires:	libselinux >= 2.4
+Requires:	libsepol >= 2.4
 Requires:	sqlite3 >= 3.2.0
 
 %description libs
@@ -265,6 +269,10 @@ Ten pakiet zawiera wiązania Tcl-a do bibliotek uruchomieniowych:
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 %build
 %{__libtoolize}

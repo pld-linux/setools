@@ -1,0 +1,15 @@
+--- setools-3.3.8/m4/ac_pkg_swig.m4.orig	2013-01-16 17:36:22.000000000 +0100
++++ setools-3.3.8/m4/ac_pkg_swig.m4	2015-10-26 18:02:47.777488446 +0100
+@@ -106,9 +106,9 @@
+                         if test -z "$available_patch" ; then
+                                 [available_patch=0]
+                         fi
+-                        if test $available_major -ne $required_major \
+-                                -o $available_minor -ne $required_minor \
+-                                -o $available_patch -lt $required_patch ; then
++                        if test $available_major -lt $required_major \
++                                -o $available_major -eq $required_major -a $available_minor -lt $required_minor \
++                                -o $available_major -eq $required_major -a $available_minor -eq $required_minor -a $available_patch -lt $required_patch ; then
+                                 AC_MSG_WARN([SWIG version >= $1 is required.  You have $swig_version.  You should look at http://www.swig.org])
+                                 SWIG='echo "Error: SWIG version >= $1 is required.  You have '"$swig_version"'.  You should look at http://www.swig.org" ; false'
+                         else
