@@ -7,7 +7,7 @@ Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
 Version:	3.3.8
-Release:	4
+Release:	5
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 #Source0Download: http://oss.tresys.com/projects/setools/wiki/download
@@ -24,6 +24,7 @@ Patch6:		%{name}-x32.patch
 Patch7:		%{name}-swig-version.patch
 Patch8:		%{name}-sepol.patch
 Patch9:		%{name}-selinux.patch
+Patch10:	python-prefix.patch
 URL:		https://github.com/TresysTechnology/setools3/wiki
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -273,6 +274,7 @@ Ten pakiet zawiera wiązania Tcl-a do bibliotek uruchomieniowych:
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 %{__libtoolize}
