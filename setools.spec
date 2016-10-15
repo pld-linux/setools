@@ -10,7 +10,7 @@ Version:	3.3.8
 Release:	5
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
-#Source0Download: http://oss.tresys.com/projects/setools/wiki/download
+#Source0Download: https://github.com/TresysTechnology/setools3/wiki/Download
 Source0:	https://raw.githubusercontent.com/wiki/TresysTechnology/setools3/files/dists/%{name}-%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	d68d0d4e4da0f01da0f208782ff04b91
 Source1:	seaudit.pamd
