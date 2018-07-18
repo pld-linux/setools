@@ -13,6 +13,9 @@ Group:		Applications/System
 #Source0Download: https://github.com/TresysTechnology/setools/releases
 Source0:	https://github.com/TresysTechnology/setools/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	54cf5c0ca2aa4ef7c6ac153981af34cd
+# https://github.com/TresysTechnology/setools/issues/174
+# https://github.com/bigon/setools/commit/e41adf01647c695b80b112b337e76021bb9f30c3.patch
+Patch0:		%{name}-format-truncation.patch
 URL:		https://github.com/TresysTechnology/setools4/wiki
 BuildRequires:	bison
 BuildRequires:	flex
@@ -161,8 +164,11 @@ Moduły graficznego interfejsu użytkownika SETools dla Pythona 3.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+export SEPOL=%{_libdir}/libsepol.a
+
 %if %{with python2}
 %py_build
 %endif
@@ -173,6 +179,8 @@ Moduły graficznego interfejsu użytkownika SETools dla Pythona 3.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+export SEPOL=%{_libdir}/libsepol.a
 
 %if %{with python3}
 %py3_install
