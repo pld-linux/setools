@@ -1,42 +1,23 @@
-#
-# Conditional build:
-%bcond_without	python2	# Python 2.x modules
-%bcond_without	python3	# Python 3.x modules
-#
 Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
-Version:	4.1.1
+Version:	4.2.2
 Release:	1
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
-#Source0Download: https://github.com/TresysTechnology/setools/releases
-Source0:	https://github.com/TresysTechnology/setools/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	54cf5c0ca2aa4ef7c6ac153981af34cd
-# https://github.com/TresysTechnology/setools/issues/174
-# https://github.com/bigon/setools/commit/e41adf01647c695b80b112b337e76021bb9f30c3.patch
-Patch0:		%{name}-format-truncation.patch
+Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
+# Source0-md5:	f78fb10ec1fe189dfd27204549854cfa
 URL:		https://github.com/TresysTechnology/setools4/wiki
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libsepol-devel >= 2.7
 BuildRequires:	libsepol-static >= 2.7
-%if %{with python2}
-BuildRequires:	python-devel >= 1:2.7
-BuildRequires:	python-setuptools
-%endif
-%if %{with python3}
 BuildRequires:	python3-devel >= 1:3.3
 BuildRequires:	python3-setuptools
-%endif
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	swig-python >= 2.0.12
 Suggests:	policy-sources
-%if %{with python2}
-Requires:	python-setools = %{version}-%{release}
-%else
 Requires:	python3-setools = %{version}-%{release}
-%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -67,11 +48,7 @@ Summary(pl.UTF-8):	Graficzne narzędzia do analizy polityk SELinuksa
 License:	GPL v2+
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
-%if %{with python2}
-Requires:	python-setoolsgui = %{version}-%{release}
-%else
 Requires:	python3-setoolsgui = %{version}-%{release}
-%endif
 
 %description gui
 SETools is a collection of graphical tools, command-line tools, and
@@ -163,34 +140,19 @@ SETools GUI modules for Python 3.
 Moduły graficznego interfejsu użytkownika SETools dla Pythona 3.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}
 
 %build
 export SEPOL=%{_libdir}/libsepol.a
 
-%if %{with python2}
-%py_build
-%endif
-
-%if %{with python3}
 %py3_build
-%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 export SEPOL=%{_libdir}/libsepol.a
 
-%if %{with python3}
 %py3_install
-%endif
-
-%if %{with python2}
-%py_install
-
-%py_postclean
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -213,34 +175,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/apol
 %{_mandir}/man1/apol.1*
 
-%if %{with python2}
-%files -n python-setools
-%defattr(644,root,root,755)
-%doc COPYING ChangeLog KNOWN-BUGS README.md
-%dir %{py_sitedir}/setools
-%{py_sitedir}/setools/diff
-%dir %{py_sitedir}/setools/policyrep
-%attr(755,root,root) %{py_sitedir}/setools/policyrep/_qpol.so
-%{py_sitedir}/setools/policyrep/*.py[co]
-%{py_sitedir}/setools/*.py[co]
-%{py_sitedir}/setools/perm_map
-%{py_sitedir}/setools-%{version}-py*.egg-info
-
-%files -n python-setoolsgui
-%defattr(644,root,root,755)
-%{py_sitedir}/setoolsgui
-%endif
-
-%if %{with python3}
 %files -n python3-setools
 %defattr(644,root,root,755)
 %doc COPYING ChangeLog KNOWN-BUGS README.md
 %dir %{py3_sitedir}/setools
 %{py3_sitedir}/setools/diff
-%dir %{py3_sitedir}/setools/policyrep
-%attr(755,root,root) %{py3_sitedir}/setools/policyrep/_qpol.cpython-*.so
-%{py3_sitedir}/setools/policyrep/*.py
-%{py3_sitedir}/setools/policyrep/__pycache__
+%attr(755,root,root) %{py3_sitedir}/setools/policyrep.cpython-*.so
 %{py3_sitedir}/setools/*.py
 %{py3_sitedir}/setools/perm_map
 %{py3_sitedir}/setools/__pycache__
@@ -249,4 +189,3 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-setoolsgui
 %defattr(644,root,root,755)
 %{py3_sitedir}/setoolsgui
-%endif
