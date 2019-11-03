@@ -2,11 +2,12 @@ Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
 Version:	4.2.2
-Release:	2
+Release:	3
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	f78fb10ec1fe189dfd27204549854cfa
+Patch0:		no-Werror.patch
 URL:		https://github.com/TresysTechnology/setools4/wiki
 BuildRequires:	bison
 BuildRequires:	flex
@@ -141,6 +142,7 @@ Moduły graficznego interfejsu użytkownika SETools dla Pythona 3.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
 
 %build
 export SEPOL=%{_libdir}/libsepol.a
