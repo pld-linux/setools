@@ -2,7 +2,7 @@ Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
 Version:	4.3.0
-Release:	6
+Release:	7
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
@@ -106,9 +106,6 @@ Moduły graficznego interfejsu użytkownika SETools dla Pythona 2.
 Summary:	Python 3 bindings for SELinux policy analysis libraries
 Summary(pl.UTF-8):	Wiązania Pythona 3 do bibliotek analizy polityk SELinuksa
 Group:		Libraries/Python
-%if "%{py3_ver}" < "3.4"
-Requires:	python3-enum34
-%endif
 Requires:	python3-modules >= 1:3.3
 Requires:	python3-networkx >= 1.8
 Suggests:	python3-selinux
