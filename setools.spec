@@ -2,7 +2,7 @@ Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
 Version:	4.3.0
-Release:	5
+Release:	6
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
