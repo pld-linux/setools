@@ -13,7 +13,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libsepol-devel >= 2.7
 BuildRequires:	libsepol-static >= 2.7
-BuildRequires:	python3-devel >= 1:3.3
+BuildRequires:	python3-devel >= 1:3.4
 BuildRequires:	python3-setuptools
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	swig-python >= 2.0.12
