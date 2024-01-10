@@ -8,7 +8,7 @@ Group:		Applications/System
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	ba6e5ec442108eef481e3a3fbb25141d
 Patch0:		no-Werror.patch
-URL:		https://github.com/TresysTechnology/setools4/wiki
+URL:		https://github.com/SELinuxProject/setools/wiki
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libsepol-devel >= 2.7
