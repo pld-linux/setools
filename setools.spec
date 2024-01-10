@@ -65,43 +65,6 @@ bibliotek mających na celu ułatwienie analizy polityk SELinuksa.
 Ten pakiet zawiera narzędzia graficzne:
 - apol - narzędzie do analizy polityk
 
-%package -n python-setools
-Summary:	Python 2 bindings for SELinux policy analysis libraries
-Summary(pl.UTF-8):	Wiązania Pythona 2 do bibliotek analizy polityk SELinuksa
-License:	LGPL v2.1+ (core modules), GPL v2+ (seinfo and sesearch)
-Group:		Libraries/Python
-Requires:	python-enum34
-Requires:	python-modules >= 1:2.7
-Requires:	python-networkx >= 1.8
-Suggests:	python-selinux
-
-%description -n python-setools
-SETools is a collection of graphical tools, command-line tools, and
-libraries designed to facilitate SELinux policy analysis.
-
-This package includes Python bindings for SELinux policy analysis
-libraries.
-
-%description -n python-setools -l pl.UTF-8
-SETools to zbiór narzędzi graficznych, narzędzi linii poleceń oraz
-bibliotek mających na celu ułatwienie analizy polityk SELinuksa.
-
-Ten pakiet zawiera wiązania Pythona do bibliotek analizy polityk
-SELinuksa.
-
-%package -n python-setoolsgui
-Summary:	SETools GUI modules for Python 2
-Summary(pl.UTF-8):	Moduły graficznego interfejsu użytkownika SETools dla Pythona 2
-Group:		Libraries/Python
-Requires:	python-setools = %{version}-%{release}
-Requires:	python-PyQt5 >= 5
-
-%description -n python-setoolsgui
-SETools GUI modules for Python 2.
-
-%description -n python-setoolsgui -l pl.UTF-8
-Moduły graficznego interfejsu użytkownika SETools dla Pythona 2.
-
 %package -n python3-setools
 Summary:	Python 3 bindings for SELinux policy analysis libraries
 Summary(pl.UTF-8):	Wiązania Pythona 3 do bibliotek analizy polityk SELinuksa
