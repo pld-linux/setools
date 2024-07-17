@@ -5,6 +5,7 @@ Version:	4.4.4
 Release:	1
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
+#Source0Download: https://github.com/SELinuxProject/setools/releases
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
 # Source0-md5:	ec0ba9630dd6800dc4313fe0e5357253
 URL:		https://github.com/SELinuxProject/setools/wiki
@@ -106,14 +107,10 @@ Moduły graficznego interfejsu użytkownika SETools dla Pythona 3.
 %setup -q -n %{name}
 
 %build
-export SEPOL=%{_libdir}/libsepol.a
-
 %py3_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-export SEPOL=%{_libdir}/libsepol.a
 
 %py3_install
 
@@ -132,6 +129,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/seinfo.1*
 %{_mandir}/man1/seinfoflow.1*
 %{_mandir}/man1/sesearch.1*
+%lang(ru) %{_mandir}/ru/man1/sediff.1*
+%lang(ru) %{_mandir}/ru/man1/sedta.1*
+%lang(ru) %{_mandir}/ru/man1/seinfo.1*
+%lang(ru) %{_mandir}/ru/man1/seinfoflow.1*
+%lang(ru) %{_mandir}/ru/man1/sesearch.1*
 
 %files gui
 %defattr(644,root,root,755)
@@ -139,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/sechecker
 %{_mandir}/man1/apol.1*
 %{_mandir}/man1/sechecker.1*
+%lang(ru) %{_mandir}/ru/man1/apol.1*
 
 %files -n python3-setools
 %defattr(644,root,root,755)
