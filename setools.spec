@@ -72,6 +72,7 @@ Group:		Libraries/Python
 Requires:	python3-modules >= 1:3.3
 Requires:	python3-networkx >= 1.8
 Suggests:	python3-selinux
+Obsoletes:	python-setools < 4.2
 
 %description -n python3-setools
 SETools is a collection of graphical tools, command-line tools, and
@@ -93,6 +94,7 @@ Summary(pl.UTF-8):	Moduły graficznego interfejsu użytkownika SETools dla Pytho
 Group:		Libraries/Python
 Requires:	python3-setools = %{version}-%{release}
 Requires:	python3-PyQt5 >= 5
+Obsoletes:	python-setoolsgui < 4.2
 
 %description -n python3-setoolsgui
 SETools GUI modules for Python 3.
