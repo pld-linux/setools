@@ -1,20 +1,20 @@
 Summary:	Policy analysis tools for SELinux
 Summary(pl.UTF-8):	Narzędzia do analizy polityk SELinuksa
 Name:		setools
-Version:	4.4.4
-Release:	2
+Version:	4.5.1
+Release:	1
 License:	GPL v2+ (tools), LGPL v2.1+ (libraries)
 Group:		Applications/System
 #Source0Download: https://github.com/SELinuxProject/setools/releases
 Source0:	https://github.com/SELinuxProject/setools/releases/download/%{version}/%{name}-%{version}.tar.bz2
-# Source0-md5:	ec0ba9630dd6800dc4313fe0e5357253
+# Source0-md5:	3929840f5dcf006ee1eb2e88c258ed02
 URL:		https://github.com/SELinuxProject/setools/wiki
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libsepol-devel >= 2.7
 BuildRequires:	libsepol-static >= 2.7
-BuildRequires:	python3-Cython >= 0.27
-BuildRequires:	python3-devel >= 1:3.4
+BuildRequires:	python3-Cython >= 0.29.14
+BuildRequires:	python3-devel >= 1:3.10
 BuildRequires:	python3-setuptools
 BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	swig-python >= 2.0.12
@@ -70,8 +70,8 @@ Ten pakiet zawiera narzędzia graficzne:
 Summary:	Python 3 bindings for SELinux policy analysis libraries
 Summary(pl.UTF-8):	Wiązania Pythona 3 do bibliotek analizy polityk SELinuksa
 Group:		Libraries/Python
-Requires:	python3-modules >= 1:3.3
-Requires:	python3-networkx >= 1.8
+Requires:	python3-modules >= 1:3.10
+Requires:	python3-networkx >= 2.6
 Suggests:	python3-selinux
 Obsoletes:	python-setools < 4.2
 
@@ -94,7 +94,7 @@ Summary:	SETools GUI modules for Python 3
 Summary(pl.UTF-8):	Moduły graficznego interfejsu użytkownika SETools dla Pythona 3
 Group:		Libraries/Python
 Requires:	python3-setools = %{version}-%{release}
-Requires:	python3-PyQt5 >= 5
+Requires:	python3-PyQt6 >= 6
 Obsoletes:	python-setoolsgui < 4.2
 
 %description -n python3-setoolsgui
